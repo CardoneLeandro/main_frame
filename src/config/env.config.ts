@@ -11,7 +11,7 @@ export const env = {
     SQL_PASSWORD: process.env.SQL_PASSWORD,
     SQL_DATABASE: process.env.SQL_DATABASE,
 
-    NON_SQL_DATABASE: process.env.NON_SQL_DATABASE,
+    NON_SQL_DATABASE: process.env.NON_SQL_DATABASE || '',
 
     JWT_SECRET: process.env.JWT_SECRET,
     JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN
