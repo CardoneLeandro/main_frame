@@ -1,15 +1,19 @@
-import { Module } from '@nestjs/common';
+import { Injectable, Logger, Module, OnApplicationBootstrap } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { SqlDatabase } from './core/data_base/sql.database';
-import { MongoDatabaseModule } from './core/data_base/mongo.database';
-import { InitLogService } from './utils/init_log';
+import { DatabaseInitLogger, DatabaseModule } from './core/db/database.module';
+
+@Injectable()
+export class AppInitLogger implements OnApplicationBootstrap {
+  private readonly logger = new Logger(AppInitLogger.name);
+
+  onApplicationBootstrap() {
+    this.logger.log('App initialized');
+  }
+}
 
 @Module({
-  imports: [
-    SqlDatabase, MongoDatabaseModule
-  ],
+  imports: [DatabaseModule],
   controllers: [AppController],
-  providers: [AppService, InitLogService],
+  providers:[DatabaseInitLogger]
 })
 export class AppModule {}
